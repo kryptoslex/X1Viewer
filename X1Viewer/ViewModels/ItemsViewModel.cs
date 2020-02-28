@@ -17,7 +17,7 @@ namespace X1Viewer.ViewModels
 
         public ItemsViewModel()
         {
-            Title = "Browse";
+            Title = "X1 Viewer";
             //Items = new ObservableCollection<Item>();
             //LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
