@@ -4,14 +4,14 @@
         <views:MenuPage />
     </MasterDetailPage.Master>
     <MasterDetailPage.Detail>
-        <NavigationPage BarBackgroundColor="Black">
+        <NavigationPage BarBackgroundColor="Black" Title="X1Viewer">
             <NavigationPage.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
                     <On Platform="iOS" Value="tab_feed.png" />
                 </OnPlatform>
             </NavigationPage.Icon>
             <x:Arguments>
-                <views:ItemsPage />
+                <views:LivePage/>
             </x:Arguments>
         </NavigationPage>
     </MasterDetailPage.Detail>

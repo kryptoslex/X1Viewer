@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using LibVLCSharp.Forms.Shared;
 using UIKit;
 
 namespace X1Viewer.iOS
@@ -22,6 +23,7 @@ namespace X1Viewer.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            LibVLCSharpFormsRenderer.Init();
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
