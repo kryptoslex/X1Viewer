@@ -6,8 +6,7 @@ namespace X1Viewer.Models
 {
     public enum MenuItemType
     {
-        Browse,
-        About
+        Devices
     }
     public class HomeMenuItem
     {

@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="X1Viewer.Views.MenuPage" Title="Connect">
-    <StackLayout VerticalOptions="FillAndExpand">
-        <ListView x:Name="ListViewMenu" HasUnevenRows="True" BackgroundColor="LightGray">
-            <d:ListView.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Item 1</x:String>
-                </x:Array>
-            </d:ListView.ItemsSource>
+    <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="LightGray">
+        <ListView  x:Name="DeviceList"
+                   Margin="20,50,0,0"
+                   BackgroundColor="Transparent">
+            <ListView.Header>
+                <StackLayout Orientation="Horizontal" Padding="0,0,0,10">
+                    <Label Text="Devices"
+                           TextColor="Red" />
+                </StackLayout>
+            </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
-                        <Grid Padding="10">
-                            <Label Text="{Binding Title}" d:Text="{Binding .}" FontSize="20" />
-                        </Grid>
-                    </ViewCell>
+                    <TextCell Text="{Binding Name}"
+                              Detail="{Binding Description}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

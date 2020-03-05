@@ -21,7 +21,7 @@ namespace X1Viewer.Views
 
             MasterBehavior = MasterBehavior.Popover;
 
-            MenuPages.Add((int)MenuItemType.Browse, (NavigationPage)Detail);
+            MenuPages.Add((int)MenuItemType.Devices, (NavigationPage)Detail);
         }
 
         public async Task NavigateFromMenu(int id)
@@ -30,12 +30,12 @@ namespace X1Viewer.Views
             {
                 switch (id)
                 {
-                    case (int)MenuItemType.Browse:
-                        MenuPages.Add(id, new NavigationPage(new LivePage()));
-                        break;
-                    case (int)MenuItemType.About:
-                        MenuPages.Add(id, new NavigationPage(new AboutPage()));
-                        break;
+                    //case (int)MenuItemType.Browse:
+                    //    MenuPages.Add(id, new NavigationPage(new LivePage()));
+                    //    break;
+                    //case (int)MenuItemType.About:
+                    //    MenuPages.Add(id, new NavigationPage(new AboutPage()));
+                    //    break;
                 }
             }
 

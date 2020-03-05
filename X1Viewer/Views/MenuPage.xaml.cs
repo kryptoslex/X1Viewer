@@ -14,26 +14,30 @@ namespace X1Viewer.Views
     {
         MainPage RootPage { get => Application.Current.MainPage as MainPage; }
         List<HomeMenuItem> menuItems;
+        List<DeviceItem> deviceList;
         public MenuPage()
         {
             InitializeComponent();
 
-            menuItems = new List<HomeMenuItem>
-            {
-                new HomeMenuItem {Id = MenuItemType.Browse, Title="Devices" }
+
+
+            List<DeviceItem> deviceList = new List<DeviceItem> {
+                
+                    new DeviceItem {Id = 1, Name = "Bunny" , Description = "mp4" , Url =  "http://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/dash/BigBuckBunnyVideo.mp4"},
+                    new DeviceItem {Id = 2, Name = "Steel" , Description = "mp4" , Url =  "http://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/dash/TearsOfSteelVideo.mp4"}
+                
             };
 
-            ListViewMenu.ItemsSource = menuItems;
+            DeviceList.ItemsSource = deviceList;
+            //ListViewMenu.SelectedItem = deviceList[0];
+            //ListViewMenu.ItemSelected += async (sender, e) =>
+            //{
+            //    if (e.SelectedItem == null)
+            //        return;
 
-            ListViewMenu.SelectedItem = menuItems[0];
-            ListViewMenu.ItemSelected += async (sender, e) =>
-            {
-                if (e.SelectedItem == null)
-                    return;
-
-                var id = (int)((HomeMenuItem)e.SelectedItem).Id;
-                await RootPage.NavigateFromMenu(id);
-            };
+            //    var id = (int)((DeviceItem)e.SelectedItem).Id;
+            //    await RootPage.NavigateFromMenu(id);
+            //};
         }
     }
 }
