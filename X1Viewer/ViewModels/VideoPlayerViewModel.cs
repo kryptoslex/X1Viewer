@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using LibVLCSharp.Shared;
 using Xamarin.Forms;
@@ -7,15 +8,22 @@ namespace X1Viewer.ViewModels
 {
     public class VideoPlayerViewModel : INotifyPropertyChanged
     {
+        private static VideoPlayerViewModel _instance;
+        private bool isDebug = true;
 
+        public static VideoPlayerViewModel Instance => _instance ?? (_instance = new VideoPlayerViewModel());
         public event PropertyChangedEventHandler PropertyChanged;
-        LibVLC _libVLC;
 
+        private LibVLC LibVLC { get; set; }
+        Media currentMedia = null;
         private MediaPlayer _mediaPlayer;
         public MediaPlayer MediaPlayer
         {
             get => _mediaPlayer;
-            private set => Set(nameof(MediaPlayer), ref _mediaPlayer, value);
+            private set
+            {
+                _mediaPlayer = value;
+            }
         }
 
         private void Set<T>(string propertyName, ref T field, T value)
@@ -27,27 +35,67 @@ namespace X1Viewer.ViewModels
             }
         }
 
-        internal void Initialize()
+
+        public string _streamUrl = "http://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/dash/BigBuckBunnyVideo.mp4";
+
+        public string StreamUrl
         {
-            if (_init) return;
-
-            _init = true;
-
-            _libVLC = new LibVLC();
-            MediaPlayer = new MediaPlayer(_libVLC)
+            get { return _streamUrl; }
+            set
             {
-                Media = new Media(_libVLC,
-                "http://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/dash/BigBuckBunnyVideo.mp4",
-                FromType.FromLocation)
-            };
+                if (_streamUrl != value)
+                {
+                    _streamUrl = value;
+                }
+            }
         }
 
-        bool _init;
 
         public VideoPlayerViewModel()
         {
-            
+            Console.WriteLine("------------------------ libvlc -------------------------");
+
+            if (MediaPlayer != null)
+            {
+                MediaPlayer.Dispose();
+                MediaPlayer = null;
+            }
+            if (LibVLC != null)
+            {
+                LibVLC.Dispose();
+                LibVLC = null;
+            }
+
+            var optionsList = new List<string>();
+            optionsList.Add("--input-repeat=65000"); //need a large number to make it look infinite
+            LibVLC = new LibVLC(optionsList.ToArray());
+            LibVLC.Log += (sender, e) => Console.WriteLine($"[{e.Level}] {e.Module}:{e.Message}");
+
+
+            MediaPlayer = new MediaPlayer(LibVLC);
         }
+
+
+
+        public void PlayMedia(string mediaUrl = "")
+        {
+            if (!string.IsNullOrEmpty(mediaUrl))
+            {
+                StreamUrl = mediaUrl;
+            }
+
+            if (MediaPlayer != null)
+            {
+                if (MediaPlayer.IsPlaying)
+                {
+                    MediaPlayer.Stop();
+                }
+            }
+            currentMedia = new Media(LibVLC, StreamUrl, FromType.FromLocation);
+            MediaPlayer.Play(currentMedia);
+            MediaPlayer.Position = 0;
+        }
+
 
         public void Stop()
         {

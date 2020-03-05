@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using X1Viewer.ViewModels;
 
 namespace X1Viewer.Views
 {
@@ -20,7 +21,7 @@ namespace X1Viewer.Views
             InitializeComponent();
 
 
-
+            DeviceList.SeparatorVisibility = SeparatorVisibility.None;
             List<DeviceItem> deviceList = new List<DeviceItem> {
                 
                     new DeviceItem {Id = 1, Name = "Bunny" , Description = "mp4" , Url =  "http://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/dash/BigBuckBunnyVideo.mp4"},
@@ -30,14 +31,21 @@ namespace X1Viewer.Views
 
             DeviceList.ItemsSource = deviceList;
             //ListViewMenu.SelectedItem = deviceList[0];
-            //ListViewMenu.ItemSelected += async (sender, e) =>
-            //{
-            //    if (e.SelectedItem == null)
-            //        return;
+            DeviceList.ItemSelected += async (sender, e) =>
+            {
+                Console.WriteLine("update: " + ((DeviceItem)e.SelectedItem).Url);
+                if (Xamarin.Forms.Application.Current.MainPage is MasterDetailPage masterDetailPage)
+                {
+                    masterDetailPage.IsPresented = false;
+                }
+                else if (Xamarin.Forms.Application.Current.MainPage is NavigationPage navigationPage && navigationPage.CurrentPage is MasterDetailPage nestedMasterDetail)
+                {
+                    nestedMasterDetail.IsPresented = false;
+                }
 
-            //    var id = (int)((DeviceItem)e.SelectedItem).Id;
-            //    await RootPage.NavigateFromMenu(id);
-            //};
+                //update video source
+                VideoPlayerViewModel.Instance.PlayMedia(((DeviceItem)e.SelectedItem).Url);
+            };
         }
     }
 }

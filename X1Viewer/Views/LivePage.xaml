@@ -4,9 +4,9 @@
         <ToolbarItem Text="Gallery" Clicked="AddItem_Clicked" />
     </ContentPage.ToolbarItems>
 
-    <ContentPage.BindingContext>
+    <!--<ContentPage.BindingContext>
         <local:VideoPlayerViewModel/>
-    </ContentPage.BindingContext>
+    </ContentPage.BindingContext>-->
     <ContentPage.Content>
       <Grid>
         <Grid.GestureRecognizers>

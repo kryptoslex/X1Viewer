@@ -7,11 +7,17 @@ namespace X1Viewer.Views
 {
     public partial class LivePage : ContentPage
     {
-        VideoPlayerViewModel _vm;
+        private VideoPlayerViewModel ViewModel { get; set; }
+
         public LivePage()
         {
             InitializeComponent();
             Title = "X1Viewer";
+
+            ViewModel = VideoPlayerViewModel.Instance;
+            BindingContext = ViewModel;
+            //ViewModel = BindingContext as VideoPlayerViewModel;
+            //videoView.MediaPlayer = ViewModel.MediaPlayer;
         }
 
         async void AddItem_Clicked(object sender, EventArgs e)
@@ -25,28 +31,16 @@ namespace X1Viewer.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
-            videoView.MediaPlayerChanged += MediaPlayerChanged;
-
-            _vm = BindingContext as VideoPlayerViewModel;
-            _vm.Initialize();
+            ViewModel.PlayMedia();
+            
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-
-            //videoView.MediaPlayerChanged -= MediaPlayerChanged;
-
-            //_vm = BindingContext as VideoPlayerViewModel;
-            //_vm.Stop();
         }
 
-        private void MediaPlayerChanged(object sender, System.EventArgs e)
-        {
-            _vm.MediaPlayer.Play();
-        }
 
-        void PanUpdated(object sender, PanUpdatedEventArgs e) => _vm.OnGesture(e);
+        void PanUpdated(object sender, PanUpdatedEventArgs e) => ViewModel.OnGesture(e);
     }
 }
