@@ -25,6 +25,7 @@ namespace X1Viewer.Views
                 Description = "This is an item description."
             };
 
+            
             BindingContext = this;
         }
 

@@ -16,7 +16,10 @@ namespace X1Viewer.Views
 
         async void AddItem_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new NavigationPage(new NewItemPage()));
+            NavigationPage gallery = new NavigationPage(new GalleryPage());
+            gallery.BarBackgroundColor = Color.Black;
+            gallery.BarTextColor = Color.White;
+            await Navigation.PushModalAsync(gallery);
         }
 
         protected override void OnAppearing()
