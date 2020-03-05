@@ -4,10 +4,7 @@
         <ToolbarItem Text="Gallery" Clicked="AddItem_Clicked" />
     </ContentPage.ToolbarItems>
 
-    <!--<ContentPage.BindingContext>
-        <local:VideoPlayerViewModel/>
-    </ContentPage.BindingContext>-->
-    <ContentPage.Content>
+    <!--<ContentPage.Content>
       <Grid>
         <Grid.GestureRecognizers>
           <PanGestureRecognizer PanUpdated="PanUpdated"/>
@@ -17,5 +14,57 @@
           <Label Text="{Binding Message}" AbsoluteLayout.LayoutBounds=".5,1,1,.1" AbsoluteLayout.LayoutFlags="All" FontSize="20" LineBreakMode="WordWrap" TextColor="White" />
         </AbsoluteLayout>
       </Grid>
-    </ContentPage.Content>
+
+    </ContentPage.Content>-->
+
+
+    <RelativeLayout  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" >
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Black" 
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=1,Constant=0}"
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=1,Constant=0}">
+
+                <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <vlc:VideoView x:Name="videoView" MediaPlayer="{Binding MediaPlayer}" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" InputTransparent="True"/>
+                <Label Text="{Binding Message}" AbsoluteLayout.LayoutBounds=".5,1,1,.1" AbsoluteLayout.LayoutFlags="All" FontSize="20" LineBreakMode="WordWrap" TextColor="White" />
+                </AbsoluteLayout>
+            </StackLayout>
+
+        <Label Text="Recording. . ." FontSize="Subtitle" TextColor="White" IsVisible="{Binding IsRecording,Mode=TwoWay}" BackgroundColor="Transparent"
+                    HorizontalTextAlignment="Center" VerticalOptions="Start" HorizontalOptions="CenterAndExpand"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=1,Constant=0}"
+                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=1,Constant=0}"
+               />
+
+        <Image x:Name="recordBtn" Source="btn_video_record.png" HeightRequest="50" WidthRequest="50"
+            BackgroundColor="Transparent" IsVisible="{Binding IsIconsVisible, Mode=TwoWay}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
+            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width,Factor=.92,Constant=0}"
+            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height,Factor=.25,Constant=0}">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer
+                    Command="{Binding RecordCommand}"
+                    />
+            </Image.GestureRecognizers>
+        </Image>
+
+        <Image x:Name="captureBtn" Source="btn_capture.png" HeightRequest="50" WidthRequest="50"
+            BackgroundColor="Transparent" IsVisible="{Binding IsIconsVisible, Mode=TwoWay}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
+            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width,Factor=.92,Constant=0}"
+            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height,Factor=.45,Constant=0}">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer
+                    Command="{Binding CaptureCommand}"
+                    />
+            </Image.GestureRecognizers>
+        </Image>
+
+        <ImageButton x:Name="galleryBtn" Source="{Binding GalleryBtnImageSource, Mode=TwoWay}" HeightRequest="50" WidthRequest="50" Aspect="AspectFit" BorderColor="DarkGray" BorderWidth="3"
+            BackgroundColor="LightGray" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="{Binding IsIconsVisible, Mode=TwoWay}"    
+             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width,Factor=.92,Constant=0}"
+            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height,Factor=.65,Constant=0}">
+               
+        </ImageButton>
+
+     </RelativeLayout>
+
 </ContentPage>
