@@ -69,6 +69,15 @@
     <PackageReference Include="VideoLAN.LibVLC.Android">
       <Version>3.2.0</Version>
     </PackageReference>
+    <PackageReference Include="X1.Core">
+      <Version>0.0.7</Version>
+    </PackageReference>
+    <PackageReference Include="X1.GUI">
+      <Version>0.0.9</Version>
+    </PackageReference>
+    <PackageReference Include="X1.Streaming">
+      <Version>0.0.9</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />

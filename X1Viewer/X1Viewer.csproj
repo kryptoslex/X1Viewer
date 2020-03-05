@@ -19,5 +19,8 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="VideoLAN.LibVLC.iOS" Version="3.1.5.1" />
     <PackageReference Include="VideoLAN.LibVLC.Android" Version="3.2.0" />
+    <PackageReference Include="X1.Core" Version="0.0.7" />
+    <PackageReference Include="X1.GUI" Version="0.0.9" />
+    <PackageReference Include="X1.Streaming" Version="0.0.9" />
   </ItemGroup>
 </Project>
