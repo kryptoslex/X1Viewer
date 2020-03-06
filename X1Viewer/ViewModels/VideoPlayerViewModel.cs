@@ -9,7 +9,7 @@ namespace X1Viewer.ViewModels
     public class VideoPlayerViewModel : INotifyPropertyChanged
     {
         private static VideoPlayerViewModel _instance;
-        private bool isDebug = true;
+        private bool isDebug = false;
 
         public static VideoPlayerViewModel Instance => _instance ?? (_instance = new VideoPlayerViewModel());
         public event PropertyChangedEventHandler PropertyChanged;
@@ -69,7 +69,12 @@ namespace X1Viewer.ViewModels
             var optionsList = new List<string>();
             optionsList.Add("--input-repeat=65000"); //need a large number to make it look infinite
             LibVLC = new LibVLC(optionsList.ToArray());
-            LibVLC.Log += (sender, e) => Console.WriteLine($"[{e.Level}] {e.Module}:{e.Message}");
+            if (isDebug)
+            {
+                LibVLC.Log += (sender, e) => Console.WriteLine($"[{e.Level}] {e.Module}:{e.Message}");
+
+            }
+            
 
 
             MediaPlayer = new MediaPlayer(LibVLC);

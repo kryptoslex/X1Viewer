@@ -1,12 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="X1Viewer.Views.MenuPage" Title="Connect">
     <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="DarkGray">
-        <ListView  x:Name="DeviceList"
+        <ListView  x:Name="DeviceListView"
                    Margin="20,50,0,0"
-                   BackgroundColor="Transparent">
+                   BackgroundColor="Transparent"
+                   IsPullToRefreshEnabled="True"
+                   RefreshControlColor="Red">
+
             <ListView.Header>
                 <StackLayout Orientation="Horizontal" Padding="0,0,0,10">
-                    <Label Text="Devices"
+                    <Label Text="Devices" FontSize="Header"
                            TextColor="Red" />
                 </StackLayout>
             </ListView.Header>
@@ -14,6 +17,21 @@
                 <DataTemplate>
                     <TextCell Text="{Binding Name}"
                               Detail="{Binding Description}"/>
+                    <!--<ViewCell>  
+                        <ViewCell.View>
+                            <Frame CornerRadius="10"  
+                                OutlineColor="Red" 
+                                Padding="0">
+                                  <StackLayout Orientation="Horizontal">  
+                                      <Label Text="{Binding Name}" FontSize="Title"
+                                       HorizontalOptions="StartAndExpand" />
+                                      <Label Text="{Binding Description}" FontSize="Subtitle"
+                                       HorizontalOptions="StartAndExpand" /> 
+                             </StackLayout>  
+                         </Frame>
+                         
+                      </ViewCell.View>  
+                   </ViewCell>-->  
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
