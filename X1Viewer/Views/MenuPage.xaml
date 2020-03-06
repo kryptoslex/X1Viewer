@@ -9,29 +9,13 @@
 
             <ListView.Header>
                 <StackLayout Orientation="Horizontal" Padding="0,0,0,10">
-                    <Label Text="Devices" FontSize="Header"
+                    <Label Text="DEVICES" FontSize="Large"
                            TextColor="Red" />
                 </StackLayout>
             </ListView.Header>
             <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextCell Text="{Binding Name}"
-                              Detail="{Binding Description}"/>
-                    <!--<ViewCell>  
-                        <ViewCell.View>
-                            <Frame CornerRadius="10"  
-                                OutlineColor="Red" 
-                                Padding="0">
-                                  <StackLayout Orientation="Horizontal">  
-                                      <Label Text="{Binding Name}" FontSize="Title"
-                                       HorizontalOptions="StartAndExpand" />
-                                      <Label Text="{Binding Description}" FontSize="Subtitle"
-                                       HorizontalOptions="StartAndExpand" /> 
-                             </StackLayout>  
-                         </Frame>
-                         
-                      </ViewCell.View>  
-                   </ViewCell>-->  
+                 <DataTemplate>
+                      <TextCell Text="{Binding Name}" Detail="{Binding Url}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

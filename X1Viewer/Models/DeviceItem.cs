@@ -3,19 +3,23 @@ namespace X1Viewer.Models
 {
     public class DeviceItem
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public string Url { get; set; }
         public string Description { get; set; }
+
+        public string Address { get; set; }
+        public int Port { get; set; }
+        public string Service { get; set; }
 
         public DeviceItem()
         {
         }
 
-        public DeviceItem(string name, string url)
+        public DeviceItem(string name, string description)
         {
             Name = name;
-            Url = url;
+            Description = description;
         }
     }
 }

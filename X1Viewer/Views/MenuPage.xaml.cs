@@ -3,10 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 using X1Viewer.ViewModels;
 using System.Threading.Tasks;
-using System.Windows.Input;
+using X1Viewer.Services;
 
 namespace X1Viewer.Views
 {
@@ -15,27 +14,49 @@ namespace X1Viewer.Views
     [DesignTimeVisible(false)]
     public partial class MenuPage : ContentPage
     {
+        string serviceType = @"_lasx1messaging._tcp";//LASX1ServiceConsts.X1MessagingServiceType;
+        bool isContinous = true;
+
         MainPage RootPage { get => Application.Current.MainPage as MainPage; }
-        List<HomeMenuItem> menuItems;
-        List<DeviceItem> deviceList = new List<DeviceItem> {
 
-                    new DeviceItem {Id = 1, Name = "Bunny" , Description = "mp4" , Url =  "http://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/dash/BigBuckBunnyVideo.mp4"},
-                    new DeviceItem {Id = 2, Name = "Steel" , Description = "mp4" , Url =  "http://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/dash/TearsOfSteelVideo.mp4"}
+        List<DeviceItem> deviceList = new List<DeviceItem>();
+        DeviceItem test1 = new DeviceItem { Id = "1", Name = "Bunny", Description = "mp4", Url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/dash/BigBuckBunnyVideo.mp4" };
+        DeviceItem test2 = new DeviceItem { Id = "2", Name = "Steel", Description = "mp4", Url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/dash/TearsOfSteelVideo.mp4" };
 
-        };
-        public void RefreshData()
+        public async Task RefreshDataAsync()
         {
-            var Dev = new DeviceItem { Id = 1, Name = "test", Description = "mp4", Url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/dash/BigBuckBunnyVideo.mp4" };
-            deviceList.Add(Dev);
+
+            await DiscoveryHelper.SearchService(serviceType).ContinueWith(o =>
+            {
+                if (o.Result.Count > 0)
+                {
+                    deviceList.Clear();
+                    foreach (var deviceItem in o.Result)
+                    {
+                        deviceList.Add(deviceItem);
+                    }
+                    deviceList.Add(test1);
+                    deviceList.Add(test2);
+
+                }
+                Console.WriteLine("Search results: " + o.Result);
+
+            });
+
             DeviceListView.ItemsSource = null;
             DeviceListView.ItemsSource = deviceList;
+            DeviceListView.IsRefreshing = false;
         }
+
 
         public MenuPage()
         {
             InitializeComponent();
             DeviceListView.SeparatorVisibility = SeparatorVisibility.None;
 
+
+            deviceList.Add(test1);
+            deviceList.Add(test2);
 
             DeviceListView.ItemsSource = deviceList;
             //ListViewMenu.SelectedItem = deviceList[0];
@@ -57,8 +78,8 @@ namespace X1Viewer.Views
 
             DeviceListView.RefreshCommand = new Command(() => {
                 //Do your stuff.    
-                RefreshData();
-                DeviceListView.IsRefreshing = false;
+                _ = RefreshDataAsync();
+                
             });
         }
     }
