@@ -63,7 +63,7 @@ namespace X1Viewer.Services
                     {
                         Name = host.DisplayName,
                         Address = host.IPAddress,
-                        Url = host.IPAddress,
+                        Url = "rtsp://" + host.IPAddress + "/stream1",
                         Id = host.Id,
                         Port = service.Value.Port,
                         Service = protocol,

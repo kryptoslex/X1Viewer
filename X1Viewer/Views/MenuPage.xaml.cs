@@ -14,7 +14,10 @@ namespace X1Viewer.Views
     [DesignTimeVisible(false)]
     public partial class MenuPage : ContentPage
     {
-        string serviceType = @"_lasx1messaging._tcp";//LASX1ServiceConsts.X1MessagingServiceType;
+        public const string CameraHttpServiceType = @"_leicahardwarehub._tcp";
+        public const string X1MessagingServiceType = @"_lasx1messaging._tcp";
+
+
         bool isContinous = true;
 
         MainPage RootPage { get => Application.Current.MainPage as MainPage; }
@@ -26,7 +29,7 @@ namespace X1Viewer.Views
         public async Task RefreshDataAsync()
         {
 
-            await DiscoveryHelper.SearchService(serviceType).ContinueWith(o =>
+            await DiscoveryHelper.SearchService(CameraHttpServiceType).ContinueWith(o =>
             {
                 if (o.Result.Count > 0)
                 {
