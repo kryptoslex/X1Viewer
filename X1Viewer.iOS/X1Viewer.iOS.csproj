@@ -133,6 +133,7 @@
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
     <BundleResource Include="Resources\btn_capture.png" />
     <BundleResource Include="Resources\btn_video_record.png" />
+    <BundleResource Include="Resources\microscope.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

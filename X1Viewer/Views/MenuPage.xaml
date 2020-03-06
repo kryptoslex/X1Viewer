@@ -9,13 +9,23 @@
 
             <ListView.Header>
                 <StackLayout Orientation="Horizontal" Padding="0,0,0,10">
-                    <Label Text="DEVICES" FontSize="Large"
+                    <Label Text="DEVICES" FontSize="Header"
                            TextColor="Red" />
                 </StackLayout>
             </ListView.Header>
             <ListView.ItemTemplate>
                  <DataTemplate>
-                      <TextCell Text="{Binding Name}" Detail="{Binding Url}"/>
+                      <!--<TextCell Text="{Binding Name}" Detail="{Binding Url}"/>-->
+
+                     <ViewCell>
+                        <StackLayout Orientation="Horizontal" HeightRequest ="50">
+                            <Image Source="microscope.png" HorizontalOptions="Start" HeightRequest ="25" WidthRequest ="25" Aspect="AspectFit"/>
+                            <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                <Label Text="{Binding Name}" TextColor="#f35e20" FontSize="Small"/>
+                                <Label Text="{Binding Url}" HorizontalOptions="FillAndExpand" TextColor="#503026" FontSize="Micro" LineBreakMode="HeadTruncation"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
