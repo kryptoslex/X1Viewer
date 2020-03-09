@@ -20,11 +20,13 @@ namespace X1Viewer.Views
             //videoView.MediaPlayer = ViewModel.MediaPlayer;
         }
 
-        async void AddItem_Clicked(object sender, EventArgs e)
+        async void GalleryIconTapCommand(object sender, EventArgs e)
         {
-            NavigationPage gallery = new NavigationPage(new GalleryPage());
-            gallery.BarBackgroundColor = Color.Black;
-            gallery.BarTextColor = Color.White;
+            NavigationPage gallery = new NavigationPage(new GalleryPage())
+            {
+                BarBackgroundColor = Color.Black,
+                BarTextColor = Color.White
+            };
             await Navigation.PushModalAsync(gallery);
         }
 
@@ -32,7 +34,6 @@ namespace X1Viewer.Views
         {
             base.OnAppearing();
             ViewModel.PlayMedia();
-            
         }
 
         protected override void OnDisappearing()

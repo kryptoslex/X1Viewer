@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:X1Viewer.ViewModels" xmlns:vlc="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms" x:Class="X1Viewer.Views.LivePage">
        <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Gallery" Clicked="AddItem_Clicked" />
+        <ToolbarItem Text="Gallery" Clicked="GalleryIconTapCommand" />
     </ContentPage.ToolbarItems>
 
     <!--<ContentPage.Content>
@@ -58,8 +58,8 @@
             </Image.GestureRecognizers>
         </Image>
 
-        <ImageButton x:Name="galleryBtn" Source="{Binding GalleryBtnImageSource, Mode=TwoWay}" HeightRequest="50" WidthRequest="50" Aspect="AspectFit" BorderColor="DarkGray" BorderWidth="3"
-            BackgroundColor="LightGray" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="{Binding IsIconsVisible, Mode=TwoWay}"    
+        <ImageButton x:Name="galleryBtn" Source="{Binding GalleryBtnImageSource, Mode=TwoWay}" HeightRequest="50" WidthRequest="50" Aspect="AspectFill" BorderColor="DarkGray" BorderWidth="3"
+            BackgroundColor="LightGray" Clicked="GalleryIconTapCommand" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="{Binding IsIconsVisible, Mode=TwoWay}"    
              RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width,Factor=.92,Constant=0}"
             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height,Factor=.65,Constant=0}">
                

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Windows.Input;
 using LibVLCSharp.Shared;
+using X1Viewer.Views;
 using Xamarin.Forms;
 
 namespace X1Viewer.ViewModels
@@ -30,6 +32,11 @@ namespace X1Viewer.ViewModels
             {
                 _mediaPlayer = value;
             }
+        }
+
+        public void OnAppearing()
+        {
+            GalleryBtnImageSource = GetImgSource();
         }
 
         private void Set<T>(string propertyName, ref T field, T value)
@@ -70,7 +77,63 @@ namespace X1Viewer.ViewModels
 
                 }
             }
+        }
 
+        ImageSource _galleryBtnImageSource;
+
+        public ImageSource GalleryBtnImageSource
+        {
+            get
+            {
+                _galleryBtnImageSource = GetImgSource();
+                return _galleryBtnImageSource;
+            }
+            set
+            {
+                if (_galleryBtnImageSource != value)
+                {
+                    _galleryBtnImageSource = value;
+                    OnPropertyChanged(nameof(GalleryBtnImageSource));
+
+                }
+            }
+        }
+
+        public VideoPlayerViewModel()
+        {
+            Console.WriteLine("------------------------ libvlc -------------------------");
+
+            if (MediaPlayer != null)
+            {
+                MediaPlayer.Dispose();
+                MediaPlayer = null;
+            }
+            if (LibVLC != null)
+            {
+                LibVLC.Dispose();
+                LibVLC = null;
+            }
+
+            var optionsList = new List<string>();
+            optionsList.Add("--input-repeat=65000"); //need a large number to make it look infinite
+            LibVLC = new LibVLC(optionsList.ToArray());
+            if (isDebug)
+            {
+                LibVLC.Log += (sender, e) => Console.WriteLine($"[{e.Level}] {e.Module}:{e.Message}");
+
+            }
+
+
+            MediaPlayer = new MediaPlayer(LibVLC);
+            MediaPlayer.SnapshotTaken += MediaPlayer_SnapTaken;
+        }
+
+
+        private void MediaPlayer_SnapTaken(object sender, EventArgs e)
+        {
+            Debug.WriteLine("Snap taken, refresh UI");
+
+            GalleryBtnImageSource = GetImgSource();
         }
 
         public ICommand RecordCommand
@@ -100,8 +163,6 @@ namespace X1Viewer.ViewModels
                                {
                                    if (LibVLC != null)
                                    {
-
-                                       //mediaVid.AddOption(":sout=#duplicate{dst=display,dst=std{mux=avformat,access=file{no-overwrite},fps=20,dst=" + generateFileName(".mjpeg") + "}}");
                                        mediaVid.AddOption(":sout=#transcode{vcodec=h264,scale=1}:duplicate{dst=display,select=video,dst=std{mux=avformat,access=file{no-overwrite},dst=" + generateFileName(".mp4") + "}}");
                                        MediaPlayer.Play(mediaVid);
                                        Debug.WriteLine("---------------------------------- START RECORDING --------------------------");
@@ -111,7 +172,6 @@ namespace X1Viewer.ViewModels
                                else
                                {
                                    PlayMedia();
-                                   //X1AppDataModel.Instance.GalleryViewModel.RefreshCommand.Execute(null);
                                    Debug.WriteLine("---------------------------------- END RECORDING --------------------------");
                                }
                            }));
@@ -151,6 +211,20 @@ namespace X1Viewer.ViewModels
             }
         }
 
+        //public ICommand GalleryIconTapCommand
+        //{
+        //    get
+        //    {
+        //        return _galleryIconTapCommand ??
+        //             (_galleryIconTapCommand =
+        //                 new Command(
+        //                   a =>
+        //                   {
+        //                       Application.Current.MainPage.Navigation.PushAsync(new GalleryPage());
+        //                   }));
+        //    }
+        //}
+
 
         private string generateFileName(string extension = ".jpg")
         {
@@ -169,35 +243,29 @@ namespace X1Viewer.ViewModels
 
         }
 
-        public VideoPlayerViewModel()
+        
+
+        Comparison<FileInfo> CompareLatest = new Comparison<FileInfo>(delegate (FileInfo a, FileInfo b)
         {
-            Console.WriteLine("------------------------ libvlc -------------------------");
+            return DateTime.Compare(a.LastWriteTime, b.LastWriteTime);
+        });
 
-            if (MediaPlayer != null)
+        private ImageSource GetImgSource()
+        {
+            if (Device.RuntimePlatform == Device.iOS)
             {
-                MediaPlayer.Dispose();
-                MediaPlayer = null;
+                var documents = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                var files = new DirectoryInfo(documents).GetFiles("*.*");
+                Array.Sort(files, CompareLatest);
+                if (files.Length > 0)
+                {
+                    var imageLast = files[files.Length - 1].FullName;
+                    return imageLast;
+                }
             }
-            if (LibVLC != null)
-            {
-                LibVLC.Dispose();
-                LibVLC = null;
-            }
+            return null;
 
-            var optionsList = new List<string>();
-            optionsList.Add("--input-repeat=65000"); //need a large number to make it look infinite
-            LibVLC = new LibVLC(optionsList.ToArray());
-            if (isDebug)
-            {
-                LibVLC.Log += (sender, e) => Console.WriteLine($"[{e.Level}] {e.Module}:{e.Message}");
-
-            }
-            
-
-
-            MediaPlayer = new MediaPlayer(LibVLC);
         }
-
 
 
         public void PlayMedia(string mediaUrl = "")
