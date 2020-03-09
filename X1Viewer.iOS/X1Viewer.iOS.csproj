@@ -49,11 +49,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>Apple Development: Apple Store Admin LMS (XV7543955E)</CodesignKey>
+    <CodesignKey>iPhone Developer: valene  soon (MZVJ2Z3CGG)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchLink>SdkOnly</MtouchLink>
-    <CodesignProvision>ViewerDev</CodesignProvision>
     <CodesignExtraArgs>-v -v -v -v</CodesignExtraArgs>
     <MtouchExtraArgs>-v -v -v -v</MtouchExtraArgs>
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
