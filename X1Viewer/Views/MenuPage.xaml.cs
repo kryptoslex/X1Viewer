@@ -55,6 +55,9 @@ namespace X1Viewer.Views
         void OnResetClicked(object sender, EventArgs args)
         {
             Debug.WriteLine("reset list");
+            deviceList.Clear();
+            deviceList.Add(test1);
+            deviceList.Add(test2);
         }
 
         public MenuPage()
