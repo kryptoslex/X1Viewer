@@ -56,6 +56,68 @@ namespace X1Viewer.ViewModels
             }
         }
 
+        public bool _isRecording;
+
+        public bool IsRecording
+        {
+            get => _isRecording;
+            set
+            {
+                if (_isRecording != value)
+                {
+                    _isRecording = value;
+                    OnPropertyChanged();
+
+                }
+            }
+
+        }
+
+        public ICommand RecordCommand
+        {
+            get
+            {
+                return _recordCommand ??
+                     (_recordCommand =
+                         new Command(
+                           a =>
+                           {
+
+                               Debug.WriteLine("StreamUrl: " + StreamUrl);
+                               Debug.WriteLine("isRecording: " + IsRecording);
+                               IsRecording = !IsRecording;
+                               Media mediaVid = MediaPlayer.Media;
+
+                               mediaVid.AddOption("--sout-keep");
+                               mediaVid.AddOption("--security-policy=1");
+                               mediaVid.AddOption("--enable-sout");
+                               mediaVid.AddOption("--enable-libdvdpsi");
+                               mediaVid.AddOption("--enable-dvbpsi");
+                               mediaVid.AddOption("--demux=avformat");
+                               mediaVid.AddOption("--no-audio");
+
+                               if (IsRecording)
+                               {
+                                   if (LibVLC != null)
+                                   {
+
+                                       //mediaVid.AddOption(":sout=#duplicate{dst=display,dst=std{mux=avformat,access=file{no-overwrite},fps=20,dst=" + generateFileName(".mjpeg") + "}}");
+                                       mediaVid.AddOption(":sout=#transcode{vcodec=h264,scale=1}:duplicate{dst=display,select=video,dst=std{mux=avformat,access=file{no-overwrite},dst=" + generateFileName(".mp4") + "}}");
+                                       MediaPlayer.Play(mediaVid);
+                                       Debug.WriteLine("---------------------------------- START RECORDING --------------------------");
+
+                                   }
+                               }
+                               else
+                               {
+                                   PlayMedia();
+                                   //X1AppDataModel.Instance.GalleryViewModel.RefreshCommand.Execute(null);
+                                   Debug.WriteLine("---------------------------------- END RECORDING --------------------------");
+                               }
+                           }));
+            }
+        }
+
         public ICommand CaptureCommand
         {
             get
@@ -265,6 +327,12 @@ namespace X1Viewer.ViewModels
             Right,
             Top,
             Bottom
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName = null)
+        {
+            var ev = PropertyChanged;
+            ev?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
