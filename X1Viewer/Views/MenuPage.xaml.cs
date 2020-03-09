@@ -6,6 +6,7 @@ using Xamarin.Forms;
 using X1Viewer.ViewModels;
 using System.Threading.Tasks;
 using X1Viewer.Services;
+using System.Diagnostics;
 
 namespace X1Viewer.Views
 {
@@ -51,6 +52,10 @@ namespace X1Viewer.Views
             DeviceListView.IsRefreshing = false;
         }
 
+        void OnResetClicked(object sender, EventArgs args)
+        {
+            Debug.WriteLine("reset list");
+        }
 
         public MenuPage()
         {

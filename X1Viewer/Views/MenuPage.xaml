@@ -1,28 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="X1Viewer.Views.MenuPage" Title="Connect">
     <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="DarkGray">
+              <Button Text="Reset"
+                        HorizontalOptions="End"
+                        VerticalOptions="Start"
+                        Clicked="OnResetClicked"
+                      Padding="0,20,20,20"/>
+
         <ListView  x:Name="DeviceListView"
-                   Margin="20,50,0,0"
+                   Margin="20,0,0,0"
                    BackgroundColor="Transparent"
                    IsPullToRefreshEnabled="True"
                    RefreshControlColor="Red">
 
             <ListView.Header>
-                <StackLayout Orientation="Horizontal" Padding="0,0,0,10">
-                    <Label Text="DEVICES" FontSize="Header"
-                           TextColor="Red" />
+                <StackLayout Orientation="Horizontal" Padding="0,0,0,10" HorizontalOptions="FillAndExpand">
+                    <Label Text="DEVICES" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Start"
+                           TextColor="Red"/>
                 </StackLayout>
             </ListView.Header>
             <ListView.ItemTemplate>
                  <DataTemplate>
-                      <!--<TextCell Text="{Binding Name}" Detail="{Binding Url}"/>-->
-
-                     <ViewCell>
-                        <StackLayout Orientation="Horizontal" HeightRequest ="50">
-                            <Image Source="microscope.png" HorizontalOptions="Start" HeightRequest ="25" WidthRequest ="25" Aspect="AspectFit"/>
-                            <StackLayout Orientation="Vertical" HorizontalOptions="Start">
-                                <Label Text="{Binding Name}" TextColor="#f35e20" FontSize="Small"/>
-                                <Label Text="{Binding Url}" HorizontalOptions="FillAndExpand" TextColor="#503026" FontSize="Micro" LineBreakMode="HeadTruncation"/>
+                     <ViewCell Height="50">
+                        <StackLayout Orientation="Horizontal" Padding="0,0,0,20">
+                            <Image Source="microscope.png" HorizontalOptions="Start" HeightRequest ="50" WidthRequest ="50" Aspect="AspectFit"/>
+                            <StackLayout Orientation="Vertical" HorizontalOptions="Start" Padding="10,0,20,0">
+                                <Label Text="{Binding Name}" TextColor="Black" FontSize="Small" HorizontalOptions="FillAndExpand" LineBreakMode="TailTruncation" HorizontalTextAlignment="Start"/>
+                                <Label Text="{Binding Url}" HorizontalOptions="FillAndExpand" TextColor="#503026" FontSize="Micro" LineBreakMode="TailTruncation" HorizontalTextAlignment="Start"/>
                             </StackLayout>
                         </StackLayout>
                     </ViewCell>
