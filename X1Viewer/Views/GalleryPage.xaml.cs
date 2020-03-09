@@ -10,18 +10,11 @@ namespace X1Viewer.Views
     public partial class GalleryPage : ContentPage
     {
         string[] imagePath = Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal));
-        //private ObservableCollection<String> _photoList = new ObservableCollection<String>();
-        //public ObservableCollection<String> PhotoList
-        //{
-        //    get { return Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal));; }
-        //}
 
         public GalleryPage()
         {
             InitializeComponent();
             CreatePhotoCollection();
-
-            //CapturedImage.Source = getImagePath[0] + ".jpg";
         }
 
         async void Close_Clicked(object sender, EventArgs e)
