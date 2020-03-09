@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Reflection;
+using System.Windows.Input;
 using LibVLCSharp.Shared;
 using Xamarin.Forms;
 
@@ -10,6 +13,9 @@ namespace X1Viewer.ViewModels
     {
         private static VideoPlayerViewModel _instance;
         private bool isDebug = false;
+
+        ICommand _captureCommand;
+        ICommand _recordCommand;
 
         public static VideoPlayerViewModel Instance => _instance ?? (_instance = new VideoPlayerViewModel());
         public event PropertyChangedEventHandler PropertyChanged;
@@ -50,6 +56,56 @@ namespace X1Viewer.ViewModels
             }
         }
 
+        public ICommand CaptureCommand
+        {
+            get
+            {
+                return _captureCommand ??
+                       (_captureCommand =
+                           new Command(async a =>
+                           {
+                               try
+                               {
+
+                                   bool result = MediaPlayer.TakeSnapshot(0, generateFileName(".jpg"), 0, 0);
+                                   if (result)
+                                   {
+                                       //await CenterMessageController.DisplayAlert("Success", "Image captured!", "OK");
+                                       //X1AppDataModel.Instance.GalleryViewModel.RefreshCommand.Execute(null);
+                                   }
+                                   else
+                                   {
+                                      // await CenterMessageController.DisplayAlert("Error", "Sorry image not captured!", "OK");
+                                   }
+
+                               }
+                               catch (Exception ex)
+                               {
+                                   Debug.WriteLine(ex.Message);
+                               }
+
+
+                           }));
+            }
+        }
+
+
+        private string generateFileName(string extension = ".jpg")
+        {
+            string documents = "";
+
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                documents = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            }
+
+            //use epoch time to be more universal
+            long epochTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            var filename = documents + "/leicaX1_" + epochTime.ToString() + extension;
+            Debug.WriteLine("Generated file path: " + filename);
+            return filename;
+
+        }
 
         public VideoPlayerViewModel()
         {
