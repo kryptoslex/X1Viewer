@@ -211,21 +211,6 @@ namespace X1Viewer.ViewModels
             }
         }
 
-        //public ICommand GalleryIconTapCommand
-        //{
-        //    get
-        //    {
-        //        return _galleryIconTapCommand ??
-        //             (_galleryIconTapCommand =
-        //                 new Command(
-        //                   a =>
-        //                   {
-        //                       Application.Current.MainPage.Navigation.PushAsync(new GalleryPage());
-        //                   }));
-        //    }
-        //}
-
-
         private string generateFileName(string extension = ".jpg")
         {
             string documents = "";
