@@ -54,10 +54,16 @@ namespace X1Viewer.Views
 
         void OnResetClicked(object sender, EventArgs args)
         {
-            Debug.WriteLine("reset list");
-            deviceList.Clear();
-            deviceList.Add(test1);
-            deviceList.Add(test2);
+            Device.BeginInvokeOnMainThread(async () => {
+                bool reset = await DisplayAlert("Clear Devices", "Are you sure you want to clear the device list?", "Yes", "No");
+                if (reset)
+                {
+                    Debug.WriteLine("Reset: " + reset);
+                    deviceList.Clear();
+                    deviceList.Add(test1);
+                    deviceList.Add(test2);
+                }
+            });
         }
 
         public MenuPage()
