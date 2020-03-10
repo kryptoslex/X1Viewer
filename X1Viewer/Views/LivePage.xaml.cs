@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using X1Viewer.ViewModels;
 using Xamarin.Forms;
+using Xamarin.Essentials;
 
 namespace X1Viewer.Views
 {
@@ -16,8 +17,6 @@ namespace X1Viewer.Views
 
             ViewModel = VideoPlayerViewModel.Instance;
             BindingContext = ViewModel;
-            //ViewModel = BindingContext as VideoPlayerViewModel;
-            //videoView.MediaPlayer = ViewModel.MediaPlayer;
         }
 
         async void GalleryIconTapCommand(object sender, EventArgs e)

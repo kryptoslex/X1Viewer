@@ -23,4 +23,7 @@
     <PackageReference Include="X1.GUI" Version="0.0.9" />
     <PackageReference Include="Zeroconf" Version="3.3.2" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utils\" />
+  </ItemGroup>
 </Project>

@@ -6,6 +6,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 using X1Viewer.Models;
+using Xamarin.Essentials;
+using System.Linq;
 
 namespace X1Viewer.Views
 {
@@ -22,6 +24,14 @@ namespace X1Viewer.Views
             MasterBehavior = MasterBehavior.Popover;
 
             MenuPages.Add((int)MenuItemType.Devices, (NavigationPage)Detail);
+
+            var profiles = Connectivity.ConnectionProfiles;
+            if (!profiles.Contains(ConnectionProfile.WiFi))
+            {
+                Device.BeginInvokeOnMainThread(async () => {
+                    await DisplayAlert("No Wifi Connection", "Wifi Connection Not Detected", "OK");
+                });
+            }
         }
 
         public async Task NavigateFromMenu(int id)
