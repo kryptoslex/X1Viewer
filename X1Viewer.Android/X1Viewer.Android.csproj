@@ -75,9 +75,6 @@
     <PackageReference Include="X1.GUI">
       <Version>0.0.9</Version>
     </PackageReference>
-    <PackageReference Include="X1.Streaming">
-      <Version>0.0.9</Version>
-    </PackageReference>
     <PackageReference Include="Zeroconf">
       <Version>3.3.2</Version>
     </PackageReference>

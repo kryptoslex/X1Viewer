@@ -66,10 +66,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>iPhone Developer: Michael Abalos (44DF68BSX4)</CodesignKey>
+    <CodesignKey>iPhone Distribution: Leica Microsystems GmbH (YX8SLBUXST)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchExtraArgs>-v -v -v -v</MtouchExtraArgs>
-    <CodesignProvision>VS: WildCard Development</CodesignProvision>
+    <CodesignProvision>ViewerDist</CodesignProvision>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -165,9 +165,6 @@
       <Version>0.0.7</Version>
     </PackageReference>
     <PackageReference Include="X1.GUI">
-      <Version>0.0.9</Version>
-    </PackageReference>
-    <PackageReference Include="X1.Streaming">
       <Version>0.0.9</Version>
     </PackageReference>
     <PackageReference Include="Zeroconf">
