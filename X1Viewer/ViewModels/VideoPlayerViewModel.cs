@@ -192,6 +192,7 @@ namespace X1Viewer.ViewModels
                                    bool result = MediaPlayer.TakeSnapshot(0, generateFileName(".jpg"), 0, 0);
                                    if (result)
                                    {
+                                       GalleryPageViewModel.Instance.BuildImageGalleryModel();
                                        //await CenterMessageController.DisplayAlert("Success", "Image captured!", "OK");
                                        //X1AppDataModel.Instance.GalleryViewModel.RefreshCommand.Execute(null);
                                    }

@@ -6,37 +6,44 @@
         <ToolbarItem Text="Close" Clicked="Close_Clicked" />
     </ContentPage.ToolbarItems>
 
-         <ScrollView VerticalOptions="Start" >
-        <FlexLayout x:Name="flexLayout" Wrap="Wrap" Direction="Row" JustifyContent="Start" AlignItems="Start" AlignContent="Start" HorizontalOptions="CenterAndExpand"
-        />
-        
+         <ScrollView VerticalOptions="Start" Orientation="Horizontal">
+            <CollectionView ItemsSource="{Binding GalleryImages}" >
+                <CollectionView.ItemsLayout>
+                   <GridItemsLayout Orientation="Vertical"
+                                    Span="5" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                                <Grid Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2" />
+                                    <RowDefinition Height="140" />
+                                    <RowDefinition Height="2" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2" />
+                                    <ColumnDefinition Width="140" />
+                                    <ColumnDefinition Width="2" />
+                                </Grid.ColumnDefinitions>
 
-        <!--<FlexLayout Wrap="Wrap">
+                                <Grid BackgroundColor="Red" x:Name="topBorder" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="3" IsVisible="{Binding IsSelected}"/>
+                                <Grid BackgroundColor="Red" x:Name="bottomBorder" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" IsVisible="{Binding IsSelected}"/>
+                                <Grid BackgroundColor="Red" x:Name="leftBorder" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" IsVisible="{Binding IsSelected}"/>
+                                <Grid BackgroundColor="Red" x:Name="rightBorder" Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" IsVisible="{Binding IsSelected}"/>
 
-            <Grid Padding="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="2" />
-                    <RowDefinition Height="140" />
-                    <RowDefinition Height="2" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2" />
-                    <ColumnDefinition Width="140" />
-                    <ColumnDefinition Width="2" />
-                </Grid.ColumnDefinitions>
-
-                <Grid BackgroundColor="Red" x:Name="topBorder" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="3" IsVisible="{Binding IsSelected}"/>
-                <Grid BackgroundColor="Red" x:Name="bottomBorder" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" IsVisible="{Binding IsSelected}"/>
-                <Grid BackgroundColor="Red" x:Name="leftBorder" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" IsVisible="{Binding IsSelected}"/>
-                <Grid BackgroundColor="Red" x:Name="rightBorder" Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" IsVisible="{Binding IsSelected}"/>
-
-                <Image x:Name="CapturedImage" Grid.Row="1"
-                                Grid.Column="1"
-                                HeightRequest="60"
-                                WidthRequest="60"/>
+                                <Image
+                                    Source="{Binding Path}"
+                                    Grid.Row="1"
+                                      Grid.Column="1"
+                                       HeightRequest="60"
+                                       WidthRequest="60"/>
                     
-            </Grid>
-        </FlexLayout>-->
+                            </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+       
     </ScrollView>  
      
 
