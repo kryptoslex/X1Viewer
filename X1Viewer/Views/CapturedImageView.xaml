@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="X1Viewer.Views.CapturedImageView">
+    <ContentPage.Padding>
+      <OnPlatform x:TypeArguments="Thickness">
+        <On Platform="iOS" Value="0,40,0,0" />
+      </OnPlatform>
+    </ContentPage.Padding>
+
+    <StackLayout Orientation="Vertical" BackgroundColor="Black">
+        <StackLayout Orientation="Horizontal" BackgroundColor="Transparent">
+            <Button x:Name="dismissLabel" Text="Back" TextColor="White" Clicked="BackButtonClicked" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" WidthRequest="50" HeightRequest="30"/>
+            <Label x:Name="imageNameLabel" Text="name" TextColor="Gray" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
+        </StackLayout>
+
+        <Grid x:Name="ImageViewer" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" IsClippedToBounds="True" Padding="10"  IsVisible="true">
+                <Image x:Name="CapturedImage" Aspect="AspectFill"/>
+        </Grid>
+
+    </StackLayout>
+
+</ContentPage>
