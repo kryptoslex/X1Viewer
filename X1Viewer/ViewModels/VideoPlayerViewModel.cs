@@ -18,6 +18,7 @@ namespace X1Viewer.ViewModels
         private static VideoPlayerViewModel _instance;
         private bool isDebug = false;
         private string latestCapturedFilename = "";
+        ScalebarControl scaleBarView;
 
         ICommand _captureCommand;
         ICommand _recordCommand;
@@ -129,6 +130,9 @@ namespace X1Viewer.ViewModels
 
             MediaPlayer = new MediaPlayer(LibVLC);
             MediaPlayer.SnapshotTaken += MediaPlayer_SnapTaken;
+
+            scaleBarView = new ScalebarControl();
+
         }
 
 
@@ -137,6 +141,15 @@ namespace X1Viewer.ViewModels
             Debug.WriteLine("Snap taken, latest image: " + latestCapturedFilename);
 
             GalleryBtnImageSource = GetImgSource();
+
+            //do burn in here...
+            SKImage stitchedImage = scaleBarView.BurnIn(latestCapturedFilename);
+            using (SKData encoded = stitchedImage.Encode(SKEncodedImageFormat.Png, 100))
+            using (Stream outFile = File.OpenWrite(latestCapturedFilename))
+            {
+                encoded.SaveTo(outFile);
+            }
+            Debug.WriteLine("burn in image: " + latestCapturedFilename);
         }
 
         public ICommand RecordCommand
