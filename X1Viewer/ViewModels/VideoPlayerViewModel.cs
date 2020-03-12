@@ -6,8 +6,10 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Input;
 using LibVLCSharp.Shared;
+using SkiaSharp;
 using X1Viewer.Views;
 using Xamarin.Forms;
+using X1Viewer.Utils;
 
 namespace X1Viewer.ViewModels
 {
@@ -15,6 +17,7 @@ namespace X1Viewer.ViewModels
     {
         private static VideoPlayerViewModel _instance;
         private bool isDebug = false;
+        private string latestCapturedFilename = "";
 
         ICommand _captureCommand;
         ICommand _recordCommand;
@@ -131,7 +134,7 @@ namespace X1Viewer.ViewModels
 
         private void MediaPlayer_SnapTaken(object sender, EventArgs e)
         {
-            Debug.WriteLine("Snap taken, refresh UI");
+            Debug.WriteLine("Snap taken, latest image: " + latestCapturedFilename);
 
             GalleryBtnImageSource = GetImgSource();
         }
@@ -225,6 +228,8 @@ namespace X1Viewer.ViewModels
             long epochTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
             var filename = documents + "/leicaX1_" + epochTime.ToString() + extension;
             Debug.WriteLine("Generated file path: " + filename);
+
+            latestCapturedFilename = filename;
             return filename;
 
         }
