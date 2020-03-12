@@ -65,6 +65,14 @@
                
         </ImageButton>
 
+        <Image x:Name="micronScale" Source="micron.png" Aspect="AspectFit"
+             HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="{Binding IsIconsVisible, Mode=TwoWay}"
+             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width,Factor=.1,Constant=0}"
+             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width,Factor=.1,Constant=0}"
+             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width,Factor=.1,Constant=0}"
+             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height,Factor=.8,Constant=0}">
+        </Image>
+
      </RelativeLayout>
 
 </ContentPage>

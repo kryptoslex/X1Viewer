@@ -26,7 +26,8 @@ namespace X1Viewer.Views
         List<DeviceItem> deviceList = new List<DeviceItem>();
         DeviceItem test1 = new DeviceItem { Id = "1", Name = "Bunny", Description = "mp4", Url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/dash/BigBuckBunnyVideo.mp4" };
         DeviceItem test2 = new DeviceItem { Id = "2", Name = "Steel", Description = "mp4", Url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/dash/TearsOfSteelVideo.mp4" };
-
+        DeviceItem test3 = new DeviceItem { Id = "3", Name = "Chrome", Description = "mp4", Url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/dash/ForBiggerEscapesVideo.mp4" };
+        
         public async Task RefreshDataAsync()
         {
 
@@ -41,6 +42,7 @@ namespace X1Viewer.Views
                     }
                     deviceList.Add(test1);
                     deviceList.Add(test2);
+                    deviceList.Add(test3);
 
                 }
                 Console.WriteLine("Search results: " + o.Result);
@@ -62,6 +64,7 @@ namespace X1Viewer.Views
                     deviceList.Clear();
                     deviceList.Add(test1);
                     deviceList.Add(test2);
+                    deviceList.Add(test3);
                 }
             });
         }
@@ -74,6 +77,8 @@ namespace X1Viewer.Views
 
             deviceList.Add(test1);
             deviceList.Add(test2);
+            deviceList.Add(test3);
+
 
             DeviceListView.ItemsSource = deviceList;
             //ListViewMenu.SelectedItem = deviceList[0];
