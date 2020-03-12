@@ -1,11 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="X1Viewer.Views.MenuPage" Title="Connect">
     <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="DarkGray">
-              <Button Text="Reset"
-                        HorizontalOptions="End"
-                        VerticalOptions="Start"
-                        Clicked="OnResetClicked"
-                      Padding="0,20,20,20"/>
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="End">
+             <Button Text="Reset"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"
+                    Clicked="OnResetClicked" Padding="20,20,20,0"/>
+
+             <Button Text="Add"
+                    HorizontalOptions="End"
+                    VerticalOptions="Start"
+                    Clicked="OnAddClicked" Padding="20,20,20,0"/>
+        </StackLayout>             
 
         <ListView  x:Name="DeviceListView"
                    Margin="20,0,0,0"

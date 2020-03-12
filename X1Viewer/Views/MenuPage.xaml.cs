@@ -7,6 +7,7 @@ using X1Viewer.ViewModels;
 using System.Threading.Tasks;
 using X1Viewer.Services;
 using System.Diagnostics;
+using X1Viewer.Utils;
 
 namespace X1Viewer.Views
 {
@@ -68,6 +69,24 @@ namespace X1Viewer.Views
                 }
             });
         }
+
+        void OnAddClicked(object sender, EventArgs args)
+        {
+            Device.BeginInvokeOnMainThread(async () => {
+                string[] myinput = await PopUpInput.InputBox(this.Navigation);
+                if(string.IsNullOrEmpty(myinput[0]) || string.IsNullOrEmpty(myinput[1]))
+                {
+                    await DisplayAlert("Error", "Invalid Input.", "OK");
+                }
+                else
+                {
+                    DeviceItem newDevice = new DeviceItem { Id = deviceList.Count.ToString(), Name = myinput[1], Description = "Goldfinch", Url = myinput[0] };
+                    deviceList.Add(newDevice);
+                    _ = RefreshDataAsync();
+                }
+            });
+        }
+
 
         public MenuPage()
         {
