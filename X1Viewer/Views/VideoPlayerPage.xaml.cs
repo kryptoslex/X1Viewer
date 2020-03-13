@@ -11,14 +11,16 @@ namespace X1Viewer.Views
         {
             InitializeComponent();
             imageNameLabel.Text = videoSource;
-            //if (!String.IsNullOrWhiteSpace(videoSource))
-            //{
-            //    videoPlayer.Source = new FileVideoSource
-            //    {
-            //        File = videoSource
-            //    };
-            //    videoPlayer.Play();
-            //}
+
+            if (!String.IsNullOrWhiteSpace(videoSource))
+            {
+                //videoPlayer.Source = new FileVideoSource
+                //{
+                //    File = videoSource
+                //};
+
+                videoPlayer.Source= VideoSource.FromUri("https://archive.org/download/ElephantsDream/ed_hd_512kb.mp4");
+            }
 
             Debug.WriteLine("Playing Video");
         }

@@ -5,14 +5,6 @@
              x:Class="X1Viewer.Views.VideoPlayerPage"
              BackgroundColor="Black">
 
-    <!--<ContentPage.ToolbarItems>
-        <ToolbarItem Text="Close" Clicked="Close_Clicked" />
-    </ContentPage.ToolbarItems>-->
-    <!--<StackLayout>
-        <video:VideoPlayer x:Name="videoPlayer"
-                            VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
-    </StackLayout>-->
-
      <ContentPage.Padding>
       <OnPlatform x:TypeArguments="Thickness">
         <On Platform="iOS" Value="0,40,0,0" />
@@ -25,9 +17,9 @@
             <Label x:Name="imageNameLabel" Text="name" TextColor="Gray" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
         </StackLayout>
 
-        <!--<Grid x:Name="ImageViewer" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" IsClippedToBounds="True" Padding="10"  IsVisible="true">
-                <Image x:Name="CapturedImage" Aspect="AspectFill"/>
-        </Grid>-->
+        <Grid x:Name="ImageViewer" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" IsClippedToBounds="True" Padding="10"  IsVisible="true" BackgroundColor="Red">
+                        <video:VideoPlayer x:Name="videoPlayer" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand" BackgroundColor="Green"/>
+        </Grid>
 
     </StackLayout>
 </ContentPage>
