@@ -11,6 +11,7 @@ namespace X1Viewer.Views
         private const double MAX_SCALE = 8;
         private const double OVERSHOOT = 0.15;
         private double StartScale;
+        private double LastX, LastY;
 
         public CapturedImageView(Image image)
         {
@@ -32,13 +33,43 @@ namespace X1Viewer.Views
             pinch.PinchUpdated += OnPinchUpdated;
             CapturedImage.GestureRecognizers.Add(pinch);
 
-            //var pan = new PanGestureRecognizer();
-            //pan.PanUpdated += OnPanUpdated;
-            //CapturedImage.GestureRecognizers.Add(pan);
+            var pan = new PanGestureRecognizer();
+            pan.PanUpdated += OnPanUpdated;
+            CapturedImage.GestureRecognizers.Add(pan);
 
-            //var tap = new TapGestureRecognizer { NumberOfTapsRequired = 2 };
-            //tap.Tapped += OnTapped;
-            //CapturedImage.GestureRecognizers.Add(tap);
+            var tap = new TapGestureRecognizer { NumberOfTapsRequired = 2 };
+            tap.Tapped += OnTapped;
+            CapturedImage.GestureRecognizers.Add(tap);
+        }
+
+        private void OnTapped(object sender, EventArgs e)
+        {
+            if (CapturedImage.Scale > MIN_SCALE || CapturedImage.Scale < MIN_SCALE)
+            {
+                CapturedImage.ScaleTo(MIN_SCALE, 250, Easing.CubicInOut);
+                CapturedImage.TranslateTo(0, 0, 250, Easing.CubicInOut);
+            }
+            else
+            {
+                AnchorX = AnchorY = 0.5; //TODO tapped position
+                CapturedImage.ScaleTo(MAX_SCALE, 250, Easing.CubicInOut);
+            }
+        }
+
+        private void OnPanUpdated(object sender, PanUpdatedEventArgs e)
+        {
+            if (CapturedImage.Scale > MIN_SCALE)
+                switch (e.StatusType)
+                {
+                    case GestureStatus.Started:
+                        LastX = CapturedImage.TranslationX;
+                        LastY = CapturedImage.TranslationY;
+                        break;
+                    case GestureStatus.Running:
+                        CapturedImage.TranslationX = Clamp(LastX + e.TotalX * CapturedImage.Scale, -Width / 2, Width / 2);
+                        CapturedImage.TranslationY = Clamp(LastY + e.TotalY * CapturedImage.Scale, -Height / 2, Height / 2);
+                        break;
+                }
         }
 
         private void OnPinchUpdated(object sender, PinchGestureUpdatedEventArgs e)
