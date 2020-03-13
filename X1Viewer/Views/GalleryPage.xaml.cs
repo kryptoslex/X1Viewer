@@ -44,7 +44,15 @@ namespace X1Viewer.Views
 
                 if (selectedImage != null)
                 {
-                    NavigationHelper.PushModalSingletonAsync(new CapturedImageView(selectedImage));
+                    if(img.Type == GalleryType.Image)
+                    {
+                        NavigationHelper.PushModalSingletonAsync(new CapturedImageView(selectedImage));
+                    }
+                    else
+                    {
+                        NavigationHelper.PushModalSingletonAsync(new VideoPlayerPage(img.Path));
+                    }
+                    
                 }
 
             }

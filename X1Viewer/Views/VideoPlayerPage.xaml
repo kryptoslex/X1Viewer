@@ -2,13 +2,32 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:video="clr-namespace:FormsVideoLibrary"
-             x:Class="X1Viewer.Views.VideoPlayerPage">
+             x:Class="X1Viewer.Views.VideoPlayerPage"
+             BackgroundColor="Black">
 
-    <ContentPage.ToolbarItems>
+    <!--<ContentPage.ToolbarItems>
         <ToolbarItem Text="Close" Clicked="Close_Clicked" />
-    </ContentPage.ToolbarItems>
-    <StackLayout>
+    </ContentPage.ToolbarItems>-->
+    <!--<StackLayout>
         <video:VideoPlayer x:Name="videoPlayer"
-                            VerticalOptions="FillAndExpand" />
+                            VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+    </StackLayout>-->
+
+     <ContentPage.Padding>
+      <OnPlatform x:TypeArguments="Thickness">
+        <On Platform="iOS" Value="0,40,0,0" />
+      </OnPlatform>
+    </ContentPage.Padding>
+
+    <StackLayout Orientation="Vertical" BackgroundColor="Black">
+        <StackLayout Orientation="Horizontal" BackgroundColor="Transparent">
+            <Button x:Name="dismissLabel" Text="Back" TextColor="White" Clicked="Close_Clicked" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" WidthRequest="50" HeightRequest="30"/>
+            <Label x:Name="imageNameLabel" Text="name" TextColor="Gray" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
+        </StackLayout>
+
+        <!--<Grid x:Name="ImageViewer" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" IsClippedToBounds="True" Padding="10"  IsVisible="true">
+                <Image x:Name="CapturedImage" Aspect="AspectFill"/>
+        </Grid>-->
+
     </StackLayout>
 </ContentPage>

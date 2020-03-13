@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using X1Viewer.Models;
+using Xamarin.Forms;
 
 namespace X1Viewer.ViewModels
 {
@@ -34,9 +36,26 @@ namespace X1Viewer.ViewModels
 
             foreach (var p in imagePath)
             {
-                System.Diagnostics.Debug.WriteLine(p);
-                galleryImages.Add(new GalleryPageItem() { Path = p + ".jpg" });
+                if (!p.Contains(".jpg"))
+                {
+                    //video
+                    if(Device.RuntimePlatform == Device.iOS)
+                    {
+                       // VideoRenderClass.GenerateThumbImage(p, 1);
+                    }
+                    Debug.WriteLine("Video : " + p);
+                    galleryImages.Add(new GalleryPageItem() { Path = p,
+                                                              Type = GalleryType.Video });
+                }
+                else
+                {
+                    Debug.WriteLine("Image : " +p);
+                    galleryImages.Add(new GalleryPageItem() { Path = p,
+                                                              Type = GalleryType.Image});
+                }
+                
             }
         }
+
     }
 }

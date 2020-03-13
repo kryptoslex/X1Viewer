@@ -25,9 +25,9 @@ namespace X1Viewer.Views
         MainPage RootPage { get => Application.Current.MainPage as MainPage; }
 
         List<DeviceItem> deviceList = new List<DeviceItem>();
-        DeviceItem test1 = new DeviceItem { Id = "1", Name = "Bunny", Description = "mp4", Url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/dash/BigBuckBunnyVideo.mp4" };
-        DeviceItem test2 = new DeviceItem { Id = "2", Name = "Steel", Description = "mp4", Url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/dash/TearsOfSteelVideo.mp4" };
-        DeviceItem test3 = new DeviceItem { Id = "3", Name = "Chrome", Description = "mp4", Url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/dash/ForBiggerEscapesVideo.mp4" };
+        DeviceItem test1 = new DeviceItem { Id = "1", Name = "Sample1", Description = "mp4", Url = "https://archive.org/download/ElephantsDream/ed_hd_512kb.mp4" };
+        DeviceItem test2 = new DeviceItem { Id = "2", Name = "Sample2", Description = "mp4", Url = "https://archive.org/download/BigBuckBunny_328/BigBuckBunny_512kb.mp4" };
+        DeviceItem test3 = new DeviceItem { Id = "3", Name = "Sample3", Description = "mp4", Url = "https://archive.org/download/Sintel/sintel-2048-stereo_512kb.mp4" };
         
         public async Task RefreshDataAsync()
         {

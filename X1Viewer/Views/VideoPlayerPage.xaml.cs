@@ -10,14 +10,15 @@ namespace X1Viewer.Views
         public VideoPlayerPage(string videoSource)
         {
             InitializeComponent();
-
-            if (!String.IsNullOrWhiteSpace(videoSource))
-            {
-                videoPlayer.Source = new FileVideoSource
-                {
-                    File = videoSource
-                };
-            }
+            imageNameLabel.Text = videoSource;
+            //if (!String.IsNullOrWhiteSpace(videoSource))
+            //{
+            //    videoPlayer.Source = new FileVideoSource
+            //    {
+            //        File = videoSource
+            //    };
+            //    videoPlayer.Play();
+            //}
 
             Debug.WriteLine("Playing Video");
         }
