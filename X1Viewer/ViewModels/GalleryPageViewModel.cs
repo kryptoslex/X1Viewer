@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
@@ -12,16 +13,15 @@ namespace X1Viewer.ViewModels
         private static GalleryPageViewModel _instance;
         public static GalleryPageViewModel Instance => _instance ?? (_instance = new GalleryPageViewModel());
 
-        private ObservableCollection<GalleryPageItem> galleryImages = new ObservableCollection<GalleryPageItem>();
-        public ObservableCollection<GalleryPageItem> GalleryImages
+        public List<GalleryPageItemGroup> galleryPageItemsGroup = new List<GalleryPageItemGroup>();
+        public List<GalleryPageItemGroup> GalleryPageItemsGroup
         {
-            get => galleryImages;
+            get => galleryPageItemsGroup;
             private set
             {
-                galleryImages = value;
+                galleryPageItemsGroup = value;
             }
         }
-
 
         public GalleryPageViewModel()
         {
@@ -30,30 +30,61 @@ namespace X1Viewer.ViewModels
 
         public void BuildImageGalleryModel()
         {
-            galleryImages.Clear();
+            galleryPageItemsGroup.Clear();
 
             string[] imagePath = Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.Personal));
 
-            foreach (var p in imagePath)
+            foreach(var p in imagePath)
             {
                 if (!p.Contains(".jpg"))
                 {
                     //video
-                    if(Device.RuntimePlatform == Device.iOS)
+                    if (Device.RuntimePlatform == Device.iOS)
                     {
-                       // VideoRenderClass.GenerateThumbImage(p, 1);
+                        // VideoRenderClass.GenerateThumbImage(p, 1);
                     }
-                    Debug.WriteLine("Video : " + p);
-                    galleryImages.Add(new GalleryPageItem() { Path = p,
-                                                              Type = GalleryType.Video });
+
+                    GalleryPageItem item = new GalleryPageItem()
+                    {
+                        Path = p,
+                        Type = GalleryType.Video
+                    };
+
+                    AddGalleryPageItemToGroup(item);
                 }
                 else
                 {
-                    Debug.WriteLine("Image : " +p);
-                    galleryImages.Add(new GalleryPageItem() { Path = p,
-                                                              Type = GalleryType.Image});
+                    GalleryPageItem item = new GalleryPageItem()
+                    {
+                        Path = p,
+                        Type = GalleryType.Image
+                    };
+
+                    AddGalleryPageItemToGroup(item);
+
                 }
-                
+            }
+        }
+
+        private void AddGalleryPageItemToGroup (GalleryPageItem item)
+        {
+            string dateCreationString = Directory.GetCreationTime(item.Path).ToString("dd MMMM yyyy");
+            bool isAdded = false;
+
+            foreach (var i in galleryPageItemsGroup)
+            {
+                if(i.Date.Equals(dateCreationString))
+                {
+                    i.Add(item);
+                    isAdded = true;
+                }
+            }
+
+            if(!isAdded)
+            {
+                List<GalleryPageItem> newList = new List<GalleryPageItem>();
+                newList.Add(item);
+                galleryPageItemsGroup.Add(new GalleryPageItemGroup(dateCreationString, newList));
             }
         }
 

@@ -1,20 +1,88 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="X1Viewer.Views.GalleryPage">
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="X1Viewer.Views.GalleryPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="DarkGray">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Close" Clicked="Close_Clicked" />
+        <ToolbarItem Clicked="Close_Clicked" Text="Close" />
     </ContentPage.ToolbarItems>
 
-         <ScrollView VerticalOptions="Start" Orientation="Horizontal">
-            <CollectionView ItemsSource="{Binding GalleryImages}" >
-                <CollectionView.ItemsLayout>
-                   <GridItemsLayout Orientation="Vertical"
-                                    Span="5" />
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Padding="10">
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.1*" />
+        </Grid.ColumnDefinitions>
+
+        <StackLayout
+            Grid.Row="0"
+            Grid.Column="0"
+            Padding="10,10,0,0"
+            Orientation="Horizontal"
+            Spacing="30">
+            <Button
+                FontSize="Subtitle"
+                HorizontalOptions="Start"
+                Style="{StaticResource OutlinedButtonStyle}"
+                Text="Assay"
+                WidthRequest="100" />
+            <Button
+                BorderColor="White"
+                FontSize="Subtitle"
+                HorizontalOptions="Start"
+                Style="{StaticResource OutlinedButtonStyle}"
+                Text="Catergory"
+                TextColor="White"
+                WidthRequest="150" />
+            <Button
+                BorderColor="White"
+                FontSize="Subtitle"
+                HorizontalOptions="Start"
+                Style="{StaticResource OutlinedButtonStyle}"
+                Text="More Filters"
+                TextColor="White"
+                WidthRequest="150" />
+        </StackLayout>
+        <Button
+            Grid.Row="0"
+            Grid.Column="1"
+            BorderColor="White"
+            FontSize="Subtitle"
+            HorizontalOptions="End"
+            Style="{StaticResource OutlinedButtonStyle}"
+            Text="..."
+            TextColor="White"
+            WidthRequest="70" />
+
+        <CollectionView
+            Grid.Row="1"
+            Grid.Column="0"
+            IsGrouped="True"
+            ItemSizingStrategy="MeasureFirstItem"
+            ItemsSource="{Binding GalleryPageItemsGroup}">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="5" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <Label
+                        Margin="10,10,10,10"
+                        BackgroundColor="Transparent"
+                        FontAttributes="Bold"
+                        FontSize="Large"
+                        Text="{Binding Date}"
+                        TextColor="White" />
+                </DataTemplate>
+            </CollectionView.GroupHeaderTemplate>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="2" />
                             <RowDefinition Height="140" />
@@ -26,32 +94,59 @@
                             <ColumnDefinition Width="2" />
                         </Grid.ColumnDefinitions>
 
-                        <Grid BackgroundColor="Black" x:Name="topBorder" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="3" IsVisible="{Binding IsSelected}"/>
-                        <Grid BackgroundColor="Black" x:Name="bottomBorder" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" IsVisible="{Binding IsSelected}"/>
-                        <Grid BackgroundColor="Black" x:Name="leftBorder" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" IsVisible="{Binding IsSelected}"/>
-                        <Grid BackgroundColor="Black" x:Name="rightBorder" Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" IsVisible="{Binding IsSelected}"/>
+                        <Grid
+                            x:Name="topBorder"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="3"
+                            BackgroundColor="Black"
+                            IsVisible="{Binding IsSelected}" />
+                        <Grid
+                            x:Name="bottomBorder"
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="3"
+                            BackgroundColor="Black"
+                            IsVisible="{Binding IsSelected}" />
+                        <Grid
+                            x:Name="leftBorder"
+                            Grid.Row="0"
+                            Grid.RowSpan="3"
+                            Grid.Column="0"
+                            BackgroundColor="Black"
+                            IsVisible="{Binding IsSelected}" />
+                        <Grid
+                            x:Name="rightBorder"
+                            Grid.Row="0"
+                            Grid.RowSpan="3"
+                            Grid.Column="2"
+                            BackgroundColor="Black"
+                            IsVisible="{Binding IsSelected}" />
 
                         <Image
-                            Source="{Binding Path}"
                             Grid.Row="1"
-                                Grid.Column="1"
-                                HeightRequest="60"
-                                WidthRequest="60">
-
-                        </Image>
+                            Grid.Column="1"
+                            HeightRequest="60"
+                            Source="{Binding Path}"
+                            WidthRequest="60" />
                         <Grid.GestureRecognizers>
-                            <TapGestureRecognizer NumberOfTapsRequired="2" Tapped="GalleryTapGestureRecognizer_OnDoubleTapped" CommandParameter="{Binding .}"/>
+                            <TapGestureRecognizer
+                                CommandParameter="{Binding .}"
+                                NumberOfTapsRequired="2"
+                                Tapped="GalleryTapGestureRecognizer_OnDoubleTapped" />
                         </Grid.GestureRecognizers>
 
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.GroupFooterTemplate>
+                <DataTemplate>
+                    <Label Margin="0,0,0,10" Text="" />
+                </DataTemplate>
+            </CollectionView.GroupFooterTemplate>
+        </CollectionView>
 
-       
-    </ScrollView>  
-     
 
+    </Grid>
 
-       
 </ContentPage>
